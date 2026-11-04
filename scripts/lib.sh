@@ -88,14 +88,16 @@ overlay_debian() {  # overlay_debian <source> <tree>
 
 # Download the upstream artifact pinned in meta.json (.source.url/.sha256) and
 # verify it. Refuses a pin whose URL does not mention the changelog version,
-# so a changelog bump without a matching re-pin fails loudly.
+# so a changelog bump without a matching re-pin fails loudly. A pre-release is
+# "1.0~rc1" in Debian but "1.0-rc1" upstream (check-update.sh maps one to the
+# other), so either spelling counts.
 fetch_pinned() {  # fetch_pinned <source> <dest-file>
     local meta url sum ver
     meta="$(pkg_dir "$1")/meta.json"
     url="$(jq -er '.source.url' "$meta")" || die "$1: no .source.url in meta.json"
     sum="$(jq -er '.source.sha256' "$meta")" || die "$1: no .source.sha256 in meta.json"
     ver="$(upstream_version "$1")"
-    case "$url" in *"$ver"*) ;; *) die "$1: pinned URL does not match version $ver: $url" ;; esac
+    case "$url" in *"$ver"* | *"${ver//\~/-}"*) ;; *) die "$1: pinned URL does not match version $ver: $url" ;; esac
     log "download $url"
     curl -fsSL --retry 3 -o "$2" "$url"
     echo "$sum  $2" | sha256sum -c --quiet - || die "$1: sha256 mismatch for $url"

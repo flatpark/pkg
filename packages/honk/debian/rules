@@ -1,0 +1,14 @@
+#!/usr/bin/make -f
+# Repack of the upstream release .deb. The binary is installed byte-identical
+# to the published artifact (no strip, no dwz).
+
+%:
+	dh $@
+
+override_dh_strip override_dh_dwz:
+
+# honk-core.service runs /etc/honk/config.dae, which the user has to write
+# first, so the unit is not enabled on install. Once enabled, upgrades restart
+# it; removal stops it.
+override_dh_installsystemd:
+	dh_installsystemd --no-enable

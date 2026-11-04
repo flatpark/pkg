@@ -10,6 +10,8 @@
 #   <out>/stanzas/<tag>.packages
 # The newest flatpark-archive-keyring .deb is also fetched to
 # <out>/flatpark-archive-keyring.deb, the bootstrap download.
+# Only sources still under packages/ are indexed: deleting a package's
+# directory drops it from the repository, while its releases stay on GitHub.
 set -euo pipefail
 . "$(dirname "$0")/lib.sh"
 
@@ -29,6 +31,10 @@ list="$(gh release list -R "$REPO" -L 1000 --exclude-drafts --exclude-pre-releas
 [ -n "$list" ] || die "no package releases found in $REPO"
 
 for src in $(cut -d' ' -f1 <<<"$list" | sort -u); do
+    if [ ! -f "$ROOT/packages/$src/debian/changelog" ]; then
+        log "$src: no longer packaged, left out of the index"
+        continue
+    fi
     # Debian version order, not sort -V: "~" sorts before everything.
     tags="$(awk -v s="$src" '$1 == s {print $2, $3}' <<<"$list" |
             while read -r v t; do
