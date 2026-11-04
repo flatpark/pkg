@@ -1,0 +1,30 @@
+Source: honk
+Section: net
+Priority: optional
+Maintainer: Komh <mail@guojing.io>
+Standards-Version: 4.7.3
+Build-Depends: debhelper-compat (= 13),
+Rules-Requires-Root: no
+Homepage: https://github.com/daeuniverse/honk
+
+Package: honk-core
+Architecture: amd64
+# Statically linked musl binary: no shared-library dependencies.
+Depends:
+ ${misc:Depends},
+# daeuniverse's own apt repository shipped this binary as "honk"; upstream's
+# honk-core package takes its place the same way.
+Conflicts: honk
+Replaces: honk
+Description: eBPF transparent proxy engine (dae syntax, doona web UI)
+ honk is an experimental transparent proxy for Linux written in Rust. It
+ follows dae's eBPF datapath and configuration syntax and sing-box's outbound
+ groups and Clash API, steering LAN-forwarded and host-originated TCP/UDP
+ through TC eBPF. It speaks SOCKS5, Shadowsocks/2022, Trojan, AnyTLS,
+ Hysteria2, TUIC, Juicity, VMess and VLESS (REALITY, Vision), with
+ subscriptions, DNS routing and selector/urltest/fallback/score groups.
+ .
+ This package installs the official upstream "full" release unmodified: a
+ static musl binary with the embedded doona web UI, the Clash-compatible and
+ native APIs, plus honk-core.service. Upstream calls it early alpha. It needs
+ Linux 6.12 or newer with BTF, cgroup v2 and bpffs.

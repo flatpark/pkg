@@ -25,7 +25,7 @@ both current through later upgrades.
 
 | Package | What | Built from |
 | --- | --- | --- |
-| [dae](packages/dae/) | dae, eBPF transparent proxy + `dae.service` | upstream release binary, repackaged |
+| [honk](packages/honk/) | `honk-core`, eBPF transparent proxy (dae syntax, doona web UI) + `honk-core.service`; tracks pre-releases | upstream release `.deb`, repackaged |
 | [scx](packages/scx/) | sched_ext CPU schedulers + `scx.service` | source (release tag) |
 | [scx-loader](packages/scx-loader/) | `scx_loader` daemon, `scxctl`, `scxtui` | source (release tag) |
 | [strata](packages/strata/) | Strata, keyboard-first GTK 4 file manager | upstream release binary, repackaged |
@@ -105,3 +105,7 @@ at `apt.guojing.io`. It moved to the FlatPark organization in October 2026
 and became a general package repository. Users of the old source should
 install `flatpark-archive-keyring` and remove
 `/etc/apt/sources.list.d/guojing.sources`.
+
+The `dae` package was dropped in November 2026 in favour of honk, which reads
+the same configuration syntax. An installed `dae` keeps working but gets no
+further updates; see [packages/honk](packages/honk/) for switching.

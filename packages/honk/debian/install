@@ -1,0 +1,3 @@
+usr/bin/honk-core usr/bin/
+usr/lib/systemd/system/honk-core.service usr/lib/systemd/system/
+etc/honk/example.dae etc/honk/
