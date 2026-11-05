@@ -1,0 +1,9 @@
+sysc-greet usr/bin/
+ascii_configs usr/share/sysc-greet/
+cmd/sysc-greet/assets/borders usr/share/sysc-greet/
+themes usr/share/sysc-greet/
+wallpapers usr/share/sysc-greet/
+fonts usr/share/sysc-greet/
+THIRD_PARTY_NOTICES.md usr/share/sysc-greet/
+debian/.build/etc/* etc/greetd/
+debian/.build/85-sysc-greet.rules usr/share/polkit-1/rules.d/

@@ -1,0 +1,10 @@
+# Home, cache and wallpaper directories of the "greeter" account, which the
+# packaged greeter configs (and upstream's binary) hardcode.
+d /var/lib/greeter                     0755 greeter greeter - -
+d /var/lib/greeter/.cache              0755 greeter greeter - -
+d /var/lib/greeter/.config             0755 greeter greeter - -
+d /var/lib/greeter/.local              0755 greeter greeter - -
+d /var/lib/greeter/.local/state        0755 greeter greeter - -
+d /var/lib/greeter/Pictures            0755 greeter greeter - -
+d /var/lib/greeter/Pictures/wallpapers 0755 greeter greeter - -
+d /var/cache/sysc-greet                0755 greeter greeter - -

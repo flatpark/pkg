@@ -1,20 +1,22 @@
 #!/usr/bin/env bash
 # Shared fetch for the Rust packages built from an upstream git tag:
-# clone v<version>, vendor every crate for an offline build, pack the orig
-# tarball, overlay debian/ and refresh the vendored-crates copyright block.
+# clone the release tag, vendor every crate for an offline build, pack the
+# orig tarball, overlay debian/ and refresh the vendored-crates copyright block.
 #
-#   scripts/cargo/fetch-tag.sh <source> <git-url> <version> <work-dir>
+#   scripts/cargo/fetch-tag.sh <source> <git-url> <version> <work-dir> [tag]
+#
+# [tag] defaults to v<version>; pass it for upstreams that tag differently.
 set -euo pipefail
 . "$(dirname "$0")/../lib.sh"
 
-SRC="$1" URL="$2" VERSION="$3" WORK="$4"
+SRC="$1" URL="$2" VERSION="$3" WORK="$4" GIT_TAG="${5:-v$3}"
 TREE="$SRC-$VERSION"
 HERE="$(cd "$(dirname "$0")" && pwd)"
 
 cd "$WORK"
 rm -rf "$TREE" "${SRC}_${VERSION}.orig.tar.gz"
-log "clone $URL v$VERSION"
-git clone -q --depth 1 --branch "v$VERSION" "$URL" "$TREE"
+log "clone $URL $GIT_TAG"
+git clone -q --depth 1 --branch "$GIT_TAG" "$URL" "$TREE"
 rm -rf "$TREE/.git"
 
 overlay_debian "$SRC" "$TREE"

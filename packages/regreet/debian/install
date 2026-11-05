@@ -1,0 +1,2 @@
+target/release/regreet usr/bin/
+regreet.sample.toml usr/share/doc/regreet/examples/

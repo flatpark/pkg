@@ -1,0 +1,27 @@
+sysc-greet for Debian
+=====================
+
+Installing the package does not switch greetd over. To use sysc-greet, edit
+/etc/greetd/config.toml so the greeter runs as the "greeter" account inside
+one of the shipped compositor configs:
+
+  [default_session]
+  user = "greeter"
+  # Hyprland 0.55+:
+  command = "start-hyprland -- --config /etc/greetd/hyprland-greeter-config.lua"
+  # or sway:
+  # command = "sway -c /etc/greetd/sway-greeter-config"
+  # or niri:
+  # command = "niri -c /etc/greetd/niri-greeter-config.kdl"
+
+then `sudo systemctl restart greetd` (from another VT or over SSH).
+
+Notes
+-----
+
+ * The terminal font is JetBrains Mono (fonts-jetbrains-mono) instead of
+   upstream's JetBrainsMono Nerd Font; change it in /etc/greetd/kitty.conf.
+ * Wallpapers need gSlapper, which Debian does not ship. Without it the
+   greeter shows its ASCII backgrounds only.
+ * Reboot/shutdown go through logind; /usr/share/polkit-1/rules.d/
+   85-sysc-greet.rules allows them for the greeter account.

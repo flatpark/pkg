@@ -1,0 +1,8 @@
+#!/bin/sh
+# Purge drops the cache. The greeter account and its home stay, as usual for
+# system accounts: another greeter may use them.
+set -e
+if [ "$1" = purge ]; then
+    rm -rf /var/cache/sysc-greet
+fi
+#DEBHELPER#
