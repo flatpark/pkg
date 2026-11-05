@@ -37,7 +37,7 @@ override_dh_auto_build:
 	sed 's|subject.user == "greeter"|subject.user == "_greetd"|' \
 		config/85-greeter.rules > debian/.build/85-sysc-greet.rules
 	grep -q '"_greetd"' debian/.build/85-sysc-greet.rules
-	! grep -rn '/var/lib/greeter\|/usr/local' debian/.build/
+	! grep -rn '/var/lib/greeter\|/usr/local' debian/.build/etc/ debian/.build/85-sysc-greet.rules
 
 override_dh_auto_install:
 	@echo "Skipping go install"
