@@ -2,11 +2,11 @@ sysc-greet for Debian
 =====================
 
 Installing the package does not switch greetd over. To use sysc-greet, edit
-/etc/greetd/config.toml so the greeter runs as the "greeter" account inside
-one of the shipped compositor configs:
+/etc/greetd/config.toml so the greeter runs inside one of the shipped
+compositor configs, as greetd's own _greetd account:
 
   [default_session]
-  user = "greeter"
+  user = "_greetd"
   # Hyprland 0.55+:
   command = "start-hyprland -- --config /etc/greetd/hyprland-greeter-config.lua"
   # or sway:
@@ -24,4 +24,8 @@ Notes
  * Wallpapers need gSlapper, which Debian does not ship. Without it the
    greeter shows its ASCII backgrounds only.
  * Reboot/shutdown go through logind; /usr/share/polkit-1/rules.d/
-   85-sysc-greet.rules allows them for the greeter account.
+   85-sysc-greet.rules allows them for _greetd.
+ * Upstream runs the greeter as its own "greeter" account in
+   /var/lib/greeter. This package uses Debian's _greetd instead: the configs
+   set HOME=/var/lib/greetd, and its subdirectories come from
+   /usr/lib/tmpfiles.d/sysc-greet.conf.

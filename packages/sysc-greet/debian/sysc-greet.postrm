@@ -1,6 +1,5 @@
 #!/bin/sh
-# Purge drops the cache. The greeter account and its home stay, as usual for
-# system accounts: another greeter may use them.
+# Purge drops the greeter cache. /var/lib/greetd belongs to greetd and stays.
 set -e
 if [ "$1" = purge ]; then
     rm -rf /var/cache/sysc-greet
