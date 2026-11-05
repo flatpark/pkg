@@ -23,7 +23,10 @@ Vcs-Browser: https://github.com/rharish101/ReGreet
 
 Package: regreet
 Architecture: amd64
+# accountsservice: the user list comes from org.freedesktop.Accounts over
+# D-Bus; without it regreet panics at startup.
 Depends:
+ accountsservice,
  greetd,
  ${misc:Depends},
  ${shlibs:Depends},

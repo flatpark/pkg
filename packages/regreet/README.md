@@ -36,6 +36,8 @@ Optional configuration: `/etc/greetd/regreet.toml` (start from
 - Runs as Debian greetd's `_greetd` account: the tmpfiles snippet
   (`/usr/lib/tmpfiles.d/regreet.conf`) gives it the state and log
   directories, where upstream's names a `greeter` user.
+- Depends on `accountsservice`: the user list is read from
+  `org.freedesktop.Accounts` over D-Bus, and regreet panics without it.
 - Background images are decoded by glycin (`glycin-loaders`, `bubblewrap`,
   recommended).
 - Version bumps wait for review (`"automerge": false`).
