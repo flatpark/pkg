@@ -1,0 +1,28 @@
+Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
+Upstream-Name: sysc-greet
+Source: https://github.com/Nomadcxx/sysc-greet
+
+Files: *
+Copyright: 2025-2026 Nomadcxx
+License: GPL-3
+
+# Go modules vendored by `go mod vendor` (list in vendor/modules.txt); each
+# carries its own license file, mostly MIT, BSD-3-clause and Apache-2.0. The
+# animation assets compiled in through sysc-Go are covered by
+# /usr/share/sysc-greet/THIRD_PARTY_NOTICES.md.
+Files: vendor/*
+Copyright: the respective module authors
+License: other
+ See the LICENSE file of each module under vendor/ in the source package.
+
+Files: debian/*
+Copyright: 2026 Komh <mail@guojing.io>
+License: GPL-3
+
+License: GPL-3
+ This program is free software: you can redistribute it and/or modify
+ it under the terms of the GNU General Public License version 3 as
+ published by the Free Software Foundation.
+ .
+ On Debian systems, the complete text of the GNU General Public License
+ version 3 can be found in /usr/share/common-licenses/GPL-3.

@@ -1,0 +1,10 @@
+# Directories the greeter writes under the home of Debian greetd's _greetd
+# account (the packaged compositor configs set HOME=/var/lib/greetd), plus
+# the greeter cache.
+d /var/lib/greetd/.cache              0755 _greetd _greetd - -
+d /var/lib/greetd/.config             0755 _greetd _greetd - -
+d /var/lib/greetd/.local              0700 _greetd _greetd - -
+d /var/lib/greetd/.local/state        0755 _greetd _greetd - -
+d /var/lib/greetd/Pictures            0755 _greetd _greetd - -
+d /var/lib/greetd/Pictures/wallpapers 0755 _greetd _greetd - -
+d /var/cache/sysc-greet               0755 _greetd _greetd - -

@@ -1,0 +1,6 @@
+regreet (0.5.0-1) unstable; urgency=medium
+
+  * Initial package: ReGreet 0.5.0, built from the upstream tag with every
+    crate vendored. Runs as greetd's _greetd user.
+
+ -- Komh <mail@guojing.io>  Thu, 05 Nov 2026 19:19:04 +0800

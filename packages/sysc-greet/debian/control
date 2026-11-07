@@ -1,0 +1,28 @@
+Source: sysc-greet
+Section: x11
+Priority: optional
+Maintainer: Komh <mail@guojing.io>
+Standards-Version: 4.7.3
+Build-Depends: debhelper-compat (= 13),
+ golang-go (>= 2:1.26~),
+Rules-Requires-Root: no
+Homepage: https://github.com/Nomadcxx/sysc-greet
+
+Package: sysc-greet
+Architecture: amd64
+Depends:
+ fonts-jetbrains-mono,
+ greetd,
+ kitty,
+ ${misc:Depends},
+# The greeter runs in kitty inside a small Wayland compositor; configs for
+# sway, Hyprland (0.55+, Lua), niri and cagebreak are in /etc/greetd.
+Recommends:
+ sway | hyprland | niri,
+Description: graphical console greeter for greetd with ASCII art and themes
+ sysc-greet is a terminal-style greeter for the greetd login daemon, written
+ in Go with Bubble Tea: ASCII art per session, animated backgrounds, themes
+ and border styles. It runs fullscreen in kitty under a Wayland compositor.
+ .
+ Installing it does not change /etc/greetd/config.toml; see
+ /usr/share/doc/sysc-greet/README.Debian to switch greetd over.

@@ -1,0 +1,47 @@
+Source: regreet
+Section: x11
+Priority: optional
+Maintainer: Komh <mail@guojing.io>
+Standards-Version: 4.7.3
+Build-Depends: debhelper-compat (= 13),
+ cargo (>= 1.85),
+ rustc (>= 1.85),
+ pkg-config,
+ libgtk-4-dev (>= 4.16),
+ libglib2.0-dev,
+ libcairo2-dev,
+ libpango1.0-dev,
+ libgdk-pixbuf-2.0-dev,
+ libgraphene-1.0-dev,
+ libfontconfig-dev,
+ liblcms2-dev,
+ libseccomp-dev,
+Rules-Requires-Root: no
+Homepage: https://github.com/rharish101/ReGreet
+Vcs-Git: https://github.com/rharish101/ReGreet
+Vcs-Browser: https://github.com/rharish101/ReGreet
+
+Package: regreet
+Architecture: amd64
+# accountsservice: the user list comes from org.freedesktop.Accounts over
+# D-Bus; without it regreet panics at startup.
+Depends:
+ accountsservice,
+ greetd,
+ ${misc:Depends},
+ ${shlibs:Depends},
+# cage is the usual host compositor (`cage -s -mlast -- regreet`); sway or
+# Hyprland work too. glycin-loaders + bubblewrap decode the background image.
+Recommends:
+ cage | sway | hyprland,
+ glycin-loaders,
+ bubblewrap,
+Description: clean and customizable GTK 4 greeter for greetd
+ ReGreet is a graphical greeter for the greetd login daemon, written in Rust
+ with GTK 4 and Relm4. It lists users and X11/Wayland sessions, remembers the
+ last user and session, and can be themed with a background image, GTK
+ settings and CSS.
+ .
+ It needs a Wayland compositor to run in, usually cage. Configure it in
+ /etc/greetd/regreet.toml and /etc/greetd/regreet.css, and point greetd's
+ default_session at it.

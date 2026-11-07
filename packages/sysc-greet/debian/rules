@@ -1,0 +1,48 @@
+#!/usr/bin/make -f
+# sysc-greet: static Go binary (as upstream builds it), vendored modules.
+
+include /usr/share/dpkg/pkg-info.mk
+
+export GOTOOLCHAIN = local
+export GOFLAGS = -mod=vendor -trimpath -buildvcs=false
+export CGO_ENABLED = 0
+export GOCACHE = $(CURDIR)/debian/.build/gocache
+export GOPATH = $(CURDIR)/debian/.build/gopath
+
+BUILD_DATE := $(shell date -u -d @$(SOURCE_DATE_EPOCH) '+%Y-%m-%d %H:%M:%S UTC')
+LDFLAGS := -X main.Version=v$(DEB_VERSION_UPSTREAM) \
+           -X main.GitCommit=v$(DEB_VERSION_UPSTREAM) \
+           -X 'main.BuildDate=$(BUILD_DATE)'
+
+# Greeter compositor configs installed to /etc/greetd. Upstream's point at
+# /usr/local/bin, at a "greeter" account (home /var/lib/greeter) and at a Nerd
+# Font Debian does not ship. Here the greeter runs as Debian greetd's own
+# _greetd account (home /var/lib/greetd), so no account is created.
+CONFIGS := sway-greeter-config hyprland-greeter-config.lua \
+           niri-greeter-config.kdl cagebreak-greeter-config
+
+%:
+	dh $@ --buildsystem=none
+
+override_dh_auto_build:
+	go build -ldflags "$(LDFLAGS)" -o sysc-greet ./cmd/sysc-greet/
+	mkdir -p debian/.build/etc
+	for f in $(CONFIGS); do \
+		sed -e 's|/usr/local/bin/sysc-greet|/usr/bin/sysc-greet|g' \
+		    -e 's|/var/lib/greeter|/var/lib/greetd|g' \
+		    config/$$f > debian/.build/etc/$$f; \
+	done
+	sed 's|^font_family .*|font_family      JetBrains Mono|' \
+		config/kitty-greeter.conf > debian/.build/etc/kitty.conf
+	sed 's|subject.user == "greeter"|subject.user == "_greetd"|' \
+		config/85-greeter.rules > debian/.build/85-sysc-greet.rules
+	grep -q '"_greetd"' debian/.build/85-sysc-greet.rules
+	! grep -rn '/var/lib/greeter\|/usr/local' debian/.build/etc/ debian/.build/85-sysc-greet.rules
+
+override_dh_auto_install:
+	@echo "Skipping go install"
+
+override_dh_dwz:
+
+override_dh_auto_clean:
+	rm -rf debian/.build sysc-greet
