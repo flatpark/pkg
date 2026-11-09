@@ -1,7 +1,7 @@
 {
   "automerge": false,
   "source": {
-    "url": "https://github.com/daeuniverse/honk/releases/download/v0.1.0-beta.5/honk-core-v0.1.0-beta.5-x86_64.deb",
-    "sha256": "47aed7ae9b7fd146d2a47b9980317e916cbcd65c31c60942f8dec4b5a8303b46"
+    "url": "https://github.com/daeuniverse/honk/releases/download/v0.1.0-beta.6/honk-core-v0.1.0-beta.6-x86_64.deb",
+    "sha256": "71b2010ba951b3bba0c46d6f59a2ea190d90493d2e328095ac0dda9f8c1e2937"
   }
 }
