@@ -1,3 +1,9 @@
+strata (1.2.1-1) unstable; urgency=medium
+
+  * New upstream release 1.2.1.
+
+ -- Komh <mail@guojing.io>  Tue, 10 Nov 2026 13:35:02 +0000
+
 strata (1.2.0-1) unstable; urgency=medium
 
   * New upstream release 1.2.0.
