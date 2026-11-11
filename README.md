@@ -31,7 +31,6 @@ both current through later upgrades.
 | [scx-loader](packages/scx-loader/) | `scx_loader` daemon, `scxctl`, `scxtui` | source (release tag) |
 | [strata](packages/strata/) | Strata, keyboard-first GTK 4 file manager | upstream release binary, repackaged |
 | [sysc-greet](packages/sysc-greet/) | sysc-greet, ASCII-art terminal greeter for greetd (in kitty) | source (release tag) |
-| [flatpak](packages/flatpak/) | sid's flatpak + parallel extra-data downloads, no cached installers, `flatpak clean` | Debian packaging + FlatPark patches |
 | [flatpark-archive-keyring](packages/flatpark-archive-keyring/) | the repository's key and apt source | this repo |
 
 Each package directory has its own README with usage and packaging notes.
@@ -111,3 +110,7 @@ install `flatpark-archive-keyring` and remove
 The `dae` package was dropped in November 2026 in favour of honk, which reads
 the same configuration syntax. An installed `dae` keeps working but gets no
 further updates; see [packages/honk](packages/honk/) for switching.
+
+The patched `flatpak` (and `libflatpak0`) was dropped in November 2026. An
+installed copy keeps working; `sudo apt install --allow-downgrades
+flatpak/unstable libflatpak0/unstable` returns to Debian's own build.
