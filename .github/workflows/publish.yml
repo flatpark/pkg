@@ -25,6 +25,10 @@ env:
 
 jobs:
   publish:
+    # Signing keys and Cloudflare/R2 credentials live in the "production"
+    # environment, which only main can use: a branch pushed by anyone with
+    # write access cannot read them.
+    environment: production
     runs-on: ubuntu-latest
     env:
       RCLONE_CONFIG_R2_TYPE: s3
